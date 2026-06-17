@@ -10,6 +10,7 @@ interface ProductTableProps {
   cargando: boolean;
   onVerify: (producto: Producto) => void;
   onDelete: (producto: Producto) => void;
+  onEdit: (producto: Producto) => void;
 }
 
 export function ProductTable({
@@ -17,6 +18,7 @@ export function ProductTable({
   cargando,
   onVerify,
   onDelete,
+  onEdit,
 }: ProductTableProps) {
   return (
     <section className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
@@ -52,6 +54,7 @@ export function ProductTable({
                   producto={producto}
                   onVerify={onVerify}
                   onDelete={onDelete}
+                  onEdit={onEdit}
                 />
               ))
             )}
@@ -66,12 +69,14 @@ interface ProductRowProps {
   producto: Producto;
   onVerify: (producto: Producto) => void;
   onDelete: (producto: Producto) => void;
+  onEdit: (producto: Producto) => void;
 }
 
 function ProductRow({
   producto,
   onVerify,
   onDelete,
+  onEdit,
 }: ProductRowProps) {
   return (
     <tr className="transition hover:bg-slate-50">
@@ -125,6 +130,12 @@ function ProductRow({
             className="rounded-md border border-rose-200 px-3 py-2 text-sm font-semibold text-rose-700 transition hover:border-rose-300 hover:bg-rose-50 focus:outline-none focus:ring-4 focus:ring-rose-100"
           >
             Eliminar
+          </button>
+          <button
+            onClick={() => onEdit(producto)}
+            className="rounded-md border border-green-200 px-3 py-2 text-sm font-semibold text-green-700 transition hover:border-green-300 hover:bg-green-50 focus:outline-none focus:ring-4 focus:ring-green-100"
+          >
+            Editar
           </button>
         </div>
       </td>

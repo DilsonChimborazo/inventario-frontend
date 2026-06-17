@@ -34,6 +34,24 @@ export default function Home() {
     const { data } = await api.get<Producto[]>("/productos");
     setProductos(data);
   }
+  const actualizarProducto = (id: number, cantidadInicial: number) => {
+  return api.patch(`/productos/${id}`, { cantidadInicial });
+};
+  const handleEdit = async (producto: Producto) => {
+    const nuevaCantidad = window.prompt(
+      "Nueva cantidad inicial",
+      producto.cantidadInicial.toString()
+    );
+
+    if (!nuevaCantidad) return;
+
+    await actualizarProducto(
+      producto.id,
+      Number(nuevaCantidad)
+    );
+
+    cargarProductos();
+  };
 
   async function registrarProducto(event: FormEvent) {
     event.preventDefault();
@@ -93,6 +111,7 @@ export default function Home() {
     setCantidadVerificada(value);
     setErrorModal("");
   }
+
 
   async function verificarProducto(event: FormEvent) {
     event.preventDefault();
@@ -200,6 +219,7 @@ export default function Home() {
           cargando={cargando}
           onVerify={abrirModalVerificacion}
           onDelete={setProductoAEliminar}
+          onEdit={handleEdit}
         />
       </div>
 
